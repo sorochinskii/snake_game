@@ -9,7 +9,6 @@ class Field:
         self.restart()
 
     def restart(self):
-        self.screen = Screen()
         self.screen.tracer(0)
         self.screen.setup(width=WORLD, height=WORLD)
         self.screen.bgcolor("black")

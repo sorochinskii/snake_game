@@ -22,9 +22,10 @@ def main():
 
     while game.on:
 
-        game.delay()
-        screen.update()
-        snake.move()
+        if not game.over:
+            game.delay()
+            screen.update()
+            snake.move()
 
         if food.collision(snake.head.pos(), snake.segment_radius):
             food.refresh()
@@ -41,7 +42,6 @@ def main():
             food.restart()
             walls.restart()
             game.restart()
-            screen.restart()
             screen.control(snake, game)
             scoreboard.restart()
 
