@@ -26,6 +26,8 @@ class Field:
         self.screen.onkey(snake.right, "Right")
         self.screen.onkey(game.resetter_on, "r")
         self.screen.onkey(game.quit, "q")
+        self.screen.onkeypress(game.dec_tempo, "space")
+        self.screen.onkeyrelease(game.inc_tempo, "space")
 
     def update(self):
         self.screen.update()
