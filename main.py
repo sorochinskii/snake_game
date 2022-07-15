@@ -4,42 +4,50 @@ from snake_game.food import Food
 from snake_game.scoreboard import Scoreboard
 from snake_game.constants import WORLD, WALL
 from snake_game.wall import Walls
+from snake_game.game import Game
+from snake_game.screen import Field
 import time
 
-screen = Screen()
-screen.setup(width=WORLD, height=WORLD)
-screen.bgcolor("black")
-screen.title("My Snake Game")
-screen.tracer(0)
 
-snake = Snake()
-food = Food()
-scoreboard = Scoreboard()
-walls = Walls()
+def main():
 
-screen.listen()
-screen.onkey(snake.up, "Up")
-screen.onkey(snake.down, "Down")
-screen.onkey(snake.left, "Left")
-screen.onkey(snake.right, "Right")
+    screen = Field()
+    snake = Snake()
+    game = Game()
+    food = Food()
+    scoreboard = Scoreboard()
+    walls = Walls()
 
-game_is_on = True
-while game_is_on:
-    screen.update()
-    time.sleep(0.1)
-    snake.move()
+    screen.control(snake, game)
 
-    if snake.head.distance(food) < 15:
-        food.refresh()
-        snake.extend()
-        scoreboard.increase_score()
+    while game.on:
 
-    if Walls.collision(snake.head.pos(), snake.segment_radius):
-        game_is_on = False
-        scoreboard.game_over()
+        game.delay()
+        screen.update()
+        snake.move()
 
-    if snake.self_collision():
-        game_is_on = False
-        scoreboard.game_over()
+        if food.collision(snake.head.pos(), snake.segment_radius):
+            food.refresh()
+            snake.extend()
+            scoreboard.increase_score()
 
-screen.exitonclick()
+        if (Walls.collision(snake.head.pos(), snake.segment_radius) or
+                snake.self_collision()):
+            game.over = True
+
+        if game.resetter:
+            screen.clear()
+            snake.restart()
+            food.restart()
+            walls.restart()
+            game.restart()
+            screen.restart()
+            screen.control(snake, game)
+            scoreboard.restart()
+
+        if game.over:
+            scoreboard.game_over()
+
+
+if __name__ == '__main__':
+    main()

@@ -8,12 +8,17 @@ RIGHT = 0
 SEGMENT_RADIUS = 10
 
 
-class Snake:
+class Snake(Turtle):
 
     def __init__(self):
+        super().__init__()
+        self.restart()
+
+    def restart(self):
+        self.clear()
         self._segments = []
         self._create_snake()
-        self.segment_radius = SEGMENT_RADIUS
+        self._segment_radius = SEGMENT_RADIUS
 
     def _create_snake(self):
         for position in STARTING_POSITIONS:
@@ -56,6 +61,10 @@ class Snake:
     @property
     def head(self):
         return self._segments[0]
+
+    @property
+    def segment_radius(self):
+        return self._segment_radius
 
     def self_collision(self):
         for segment in self._segments[1:]:
