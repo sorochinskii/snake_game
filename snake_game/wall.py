@@ -4,17 +4,10 @@ from .constants import WALL
 
 
 class Walls(Turtle):
-    _instance = None
 
     def __init__(self):
         super().__init__()
         self.restart()
-
-    @classmethod
-    def get_instance(cls):
-        if not cls._instance:
-            cls._instance = Wall()
-        return cls._instance
 
     def restart(self):
         corner1 = (WALL, WALL)

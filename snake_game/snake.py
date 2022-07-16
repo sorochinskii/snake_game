@@ -1,4 +1,5 @@
 from turtle import Turtle
+
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
 UP = 90
@@ -72,3 +73,7 @@ class Snake(Turtle):
                 return True
         else:
             return False
+
+    def segment_destroy(self):
+        item = self._segments.pop()
+        item.hideturtle()

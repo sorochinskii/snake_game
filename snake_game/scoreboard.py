@@ -1,7 +1,10 @@
 from turtle import Turtle
-ALIGNMENT = "center"
-FONT = ("Arial", 22, "normal")
 
+ALIGNMENT = "center"
+FONT_SIZE = 22
+FONT = ("Arial", 22, "normal")
+GAME_OVER_MESSAGE = ["GAME OVER", "press r to restart",
+                     "press q to quit", "press space to speed up game"]
 
 class Scoreboard(Turtle):
 
@@ -21,11 +24,15 @@ class Scoreboard(Turtle):
     def update_scoreboard(self):
         self.write(f"Score: {self.score}", align=ALIGNMENT, font=FONT)
 
-    def game_over(self):
-        self.goto(0, 0)
-        self.write("GAME OVER", align=ALIGNMENT, font=FONT)
-
-    def increase_score(self):
-        self.score += 1
+    def change_score(self, value):
+        self.score += value
         self.clear()
         self.update_scoreboard()
+
+    def game_over(self):
+        self.goto(0, 0)
+        indent = 0
+        for message in GAME_OVER_MESSAGE:
+            self.write(message, align=ALIGNMENT, font=FONT)
+            indent -= FONT_SIZE + 10
+            self.goto(0, indent)
