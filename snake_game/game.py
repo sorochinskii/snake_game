@@ -3,15 +3,15 @@ import time
 
 class Game:
     def __init__(self):
-        self.restart()
+        self._reset = True
+        self._on = True
 
-    def restart(self):
+    def setup(self):
         self._ref_speed = 0.15
         self._delta_speed = 0.1
         self.speed = self._ref_speed
-        self._on = True
-        self._over = False
         self._reset = False
+        self._over = False
 
     def delay(self):
         try:

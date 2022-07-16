@@ -9,21 +9,35 @@ from snake_game.screen import Field
 from snake_game.snake import Snake
 from snake_game.wall import Walls
 from snake_game.antifood import Antifood
+import tkinter  
 
 
 def main():
 
-    field = Field()
-    snake = Snake()
     game = Game()
-    food = Food()
-    scoreboard = Scoreboard()
-    walls = Walls()
-    antifood = Antifood()
+    field = Field()
 
-    field.control(snake, game)
 
     while game.on:
+
+        if game.resetter:
+
+            game.setup()
+
+            window = field.get_canvas().winfo_toplevel()
+            window_x = window.winfo_x()
+            window_y = window.winfo_y()
+
+            field.clear()
+            field.setup(window_x, window_y)
+
+            snake = Snake()
+            food = Food()
+            scoreboard = Scoreboard()
+            walls = Walls()
+            antifood = Antifood()
+
+            field.control(snake, game)
 
         if not game.over:
             game.delay()
@@ -49,20 +63,9 @@ def main():
                 snake.self_collision()):
             game.over = True
 
-        if game.resetter:
 
-            field.clear()
-            snake.restart()
-            food.restart()
-            walls.restart()
-            game.restart()
-            field.control(snake, game)
-            scoreboard.restart()
-            antifood.restart()
-
-        if game.over:
+        if game.over: 
             scoreboard.game_over()
-
 
 if __name__ == '__main__':
     main()

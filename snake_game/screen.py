@@ -6,17 +6,17 @@ from .constants import WORLD
 class Field:
     def __init__(self):
         self.screen = Screen()
-        self.restart()
 
-    def restart(self):
+    def setup(self, window_x = None, window_y = None):
         self.screen.tracer(0)
-        self.screen.setup(width=WORLD, height=WORLD)
+        self.screen.setup(width=WORLD, height=WORLD, 
+                          startx = window_x, starty = window_y)
         self.screen.bgcolor("black")
         self.screen.title("Super Duper Snake Game")
         self.screen.listen()
 
     def clear(self):
-        self.screen.reset()
+        self.screen.clear()
 
     def control(self, snake, game):
         self.screen.onkey(snake.up, "Up")
@@ -31,8 +31,8 @@ class Field:
     def update(self):
         self.screen.update()
 
-    def get_screen(self, turtle):
-        return turtle.getscreen()
-
     def turtles(self):
         return self.screen.turtles()
+
+    def get_canvas(self):
+        return self.screen.getcanvas()
