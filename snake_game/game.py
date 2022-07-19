@@ -9,7 +9,7 @@ class Game:
     def setup(self):
         self._ref_speed = 0.15
         self._delta_speed = 0.1
-        self.speed = self._ref_speed
+        self._speed = self._ref_speed
         self._reset = False
         self._over = False
 

@@ -9,7 +9,6 @@ from snake_game.screen import Field
 from snake_game.snake import Snake
 from snake_game.wall import Walls
 from snake_game.antifood import Antifood
-import tkinter  
 
 
 def main():
@@ -17,19 +16,14 @@ def main():
     game = Game()
     field = Field()
 
-
     while game.on:
 
         if game.resetter:
 
             game.setup()
 
-            window = field.get_canvas().winfo_toplevel()
-            window_x = window.winfo_x()
-            window_y = window.winfo_y()
-
             field.clear()
-            field.setup(window_x, window_y)
+            field.setup()
 
             snake = Snake()
             food = Food()
@@ -58,14 +52,14 @@ def main():
             antifood.remove_items(antifood_collisions)
             snake.segment_destroy()
             scoreboard.change_score(-1)
-            
+
         if (Walls.collision(snake.head.pos(), snake.segment_radius) or
                 snake.self_collision()):
             game.over = True
 
-
-        if game.over: 
+        if game.over:
             scoreboard.game_over()
+
 
 if __name__ == '__main__':
     main()

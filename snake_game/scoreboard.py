@@ -6,6 +6,7 @@ FONT = ("Arial", 22, "normal")
 GAME_OVER_MESSAGE = ["GAME OVER", "press r to restart",
                      "press q to quit", "press space to speed up game"]
 
+
 class Scoreboard(Turtle):
 
     def __init__(self):

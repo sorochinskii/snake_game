@@ -7,10 +7,19 @@ class Field:
     def __init__(self):
         self.screen = Screen()
 
-    def setup(self, window_x = None, window_y = None):
+    def setup(self):
+
         self.screen.tracer(0)
-        self.screen.setup(width=WORLD, height=WORLD, 
-                          startx = window_x, starty = window_y)
+
+        window = self.screen.getcanvas().winfo_toplevel()
+        temp_x = window.winfo_x() - 5
+        window_x = temp_x if temp_x else None
+        temp_y = window.winfo_y() - 29
+        window_y = temp_y if temp_y else None
+
+        self.screen.setup(width=WORLD, height=WORLD,
+                          startx=window_x, starty=window_y)
+
         self.screen.bgcolor("black")
         self.screen.title("Super Duper Snake Game")
         self.screen.listen()
